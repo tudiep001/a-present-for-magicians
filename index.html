@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy New Year 🎉</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: "Alex Brush", serif;
+    background: linear-gradient(135deg, #ffecd2, #fcb69f);
+    overflow: hidden;
+}
+
+/* ===================== PAGE 1 – INTRO VIDEO ===================== */
+#page1 {
+    position: fixed;
+    inset: 0;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+}
+#introVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+#skipIntro {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    padding: 12px 24px;
+    font-size: 20px;
+    background: rgba(255,255,255,0.85);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* ===================== PAGE 2 – ENVELOPE ===================== */
+.page { display: none; }
+
+.scene {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1200px;
+}
+
+.envelope {
+    position: relative;
+    width: 800px;
+    height: 650px;
+    transform-style: preserve-3d;
+    transition: transform 1.5s ease;
+}
+
+.flap {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(135deg, #ffe4e1, #ffb6c1);
+    transform-origin: top center;
+    transition: transform 1.2s ease;
+    border-radius: 12px 12px 0 0;
+    z-index: 2;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.body {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(135deg, #ffcdd2, #ffe6e9);
+    border-radius: 0 0 12px 12px;
+}
+
+.card {
+    position: absolute;
+    inset: 0;
+    background: white;
+    border-radius: 14px;
+    padding: 30px;
+    text-align: center;
+    transform-origin: bottom center;
+    transform: rotateX(90deg);
+    opacity: 0;
+    transition: transform 1.5s ease, opacity 1s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+.card.open {
+    transform: rotateX(0deg) translateY(-35px);
+    opacity: 1;
+}
+
+h1 {
+    color: #d10000;
+    font-size: 30px;
+}
+
+#wishText {
+    white-space: pre-line;
+    font-size: 22px;
+    margin-top: 15px;
+    min-height: 150px;
+}
+
+/* ===================== FLOWERS ===================== */
+.flower {
+    position: fixed;
+    top: -5vh;
+    width: 18px;
+    height: 18px;
+    background: radial-gradient(circle, #ff99c8, #ff5c8a);
+    border-radius: 50%;
+    opacity: 0.85;
+    animation: fall 9s linear infinite;
+    pointer-events: none;
+}
+@keyframes fall {
+    0% { transform: translate3d(var(--start-x), -10vh, 0) rotate(0deg); opacity: 0.5; }
+    50% { transform: translate3d(var(--mid-x), 50vh, 0) rotate(180deg); opacity: 1; }
+    100% { transform: translate3d(var(--end-x), 110vh, 0) rotate(360deg); opacity: 0; }
+}
+
+/* ===================== PAGE 3 – VIDEO ===================== */
+#page3 {
+    display: none;
+    height: 100vh;
+    text-align: center;
+    background: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#page3 h2 {
+    font-size: 26px;
+    color: #b30000;
+    margin-bottom: 20px;
+}
+
+#playVideo3 {
+    padding: 12px 22px;
+    font-size: 20px;
+    border: none;
+    background: #ffeded;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#video3 {
+    display: none;
+    width: 60%;
+    max-width: 420px;
+    border-radius: 12px;
+    margin-top: 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===================== PAGE 1 ===================== -->
+<div id="page1">
+    <video id="introVideo" autoplay muted playsinline>
+        <source src="https://raw.githubusercontent.com/tudiep001/a-present-for-magicians/main/videos/Logo_Intro_Video_Generation.mp4" type="video/mp4">
+    </video>
+    <button id="skipIntro">Bỏ qua ▶</button>
+</div>
+
+<!-- ===================== PAGE 2 ===================== -->
+<div id="page2" class="page">
+    <audio id="bgmPage2" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-sweet.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="scene">
+        <div class="envelope">
+            <div class="flap" id="flap"></div>
+            <div class="body"></div>
+            <div class="card" id="card">
+                <h1>🎉 Chúc Mừng Năm Mới Bính Ngọ 2026 🎊</h1>
+                <p id="wishText"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== PAGE 3 ===================== -->
+<div id="page3" class="page">
+    <h2>🎬 Lời chúc dành tặng các Magicians 🎁</h2>
+    <button id="playVideo3">▶ Phát video</button>
+    <video id="video3">
+        <source src= "https://raw.githubusercontent.com/tudiep001/a-present-for-magicians/main/0216%20(1).mp4" type="video/mp4">
+    </video>
+</div>
+
+<!-- ===================== SCRIPT ===================== -->
+<script>
+/* ===================== PAGE SWITCH ===================== */
+const page1 = document.getElementById("page1");
+const page2 = document.getElementById("page2");
+const page3 = document.getElementById("page3");
+
+/* Skip intro */
+document.getElementById("skipIntro").onclick = () => {
+    page1.style.display = "none";
+    showPage2();
+};
+
+/* Auto next after intro video ends */
+document.getElementById("introVideo").onended = () => {
+    page1.style.display = "none";
+    showPage2();
+};
+
+/* ===================== PAGE 2 – ANIMATION ===================== */
+const bgm2 = document.getElementById("bgmPage2");
+const flap = document.getElementById("flap");
+const card = document.getElementById("card");
+
+function showPage2() {
+    page2.style.display = "block";
+
+    /* Auto play bgm */
+    bgm2.volume = 0.7;
+    bgm2.play().catch(()=>{}); // tránh lỗi autoplay
+
+    setTimeout(() => {
+        flap.style.transform = "rotateX(-160deg)";
+        setTimeout(() => {
+            card.classList.add("open");
+            startFlowers();
+            startTypeWriter();
+        }, 1000);
+    }, 700);
+
+    /* Auto next to page 3 */
+    setTimeout(() => {
+        bgm2.pause();  // tắt nhạc khi sang trang 3
+        page2.style.display = "none";
+        page3.style.display = "flex";
+    }, 16500);
+}
+
+/* ===================== FLOWERS ===================== */
+function startFlowers() {
+    for (let i = 0; i < 15; i++) createFlower();
+    setInterval(createFlower, 700);
+}
+
+function createFlower() {
+    const f = document.createElement("div");
+    f.className = "flower";
+
+    f.style.setProperty("--start-x", `${Math.random()*100}vw`);
+    f.style.setProperty("--mid-x", `${Math.random()*100}vw`);
+    f.style.setProperty("--end-x", `${Math.random()*100}vw`);
+    f.style.animationDelay = `${Math.random()*3}s`;
+
+    document.body.appendChild(f);
+    setTimeout(() => f.remove(), 9000);
+}
+
+/* ===================== TYPEWRITER ===================== */
+const lines = [
+    "✨ Vậy là năm đầu đồng hành cùng Nghịch Thủy Hàn đã qua!",
+    "🌸 Cá nhân tôi đã kết giao được nhiều bằng hữu.",
+    "🍀 Anh Tiến, Keyta, anh Khánh, chị Gạo, anh MinhD, anh Kiếm Ân...",
+    "💖 Cùng toàn thể mọi người trong đại gia đình Magicians!",
+    "NĂM BÍNH NGỌ XIN CHÚC TẤT CẢ MỌI NGƯỜI",
+];
+
+let currentLine = 0, charIndex = 0;
+const wishBox = document.getElementById("wishText");
+
+function startTypeWriter() {
+    if (currentLine >= lines.length) return;
+
+    let line = lines[currentLine];
+    if (charIndex < line.length) {
+        wishBox.innerHTML += line.charAt(charIndex);
+        charIndex++;
+        setTimeout(startTypeWriter, 40);
+    } else {
+        wishBox.innerHTML += "\n\n";
+        currentLine++;
+        charIndex = 0;
+        setTimeout(startTypeWriter, 450);
+    }
+}
+
+/* ===================== PAGE 3 PLAY VIDEO ===================== */
+const playBtn3 = document.getElementById("playVideo3");
+const video3 = document.getElementById("video3");
+
+playBtn3.onclick = () => {
+    video3.style.display = "block";
+    video3.play();
+};
+</script>
+
+</body>
+</html>
